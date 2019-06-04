@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>BDSM - Lua Scripts for LÖVE</title>
+        <link rel="stylesheet" type="text/css" href="prism.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+
+    <body>
+        <header>
+            <div id="site-header">
+                <h1>IMP1's GameDev Scripts</h1>
+            </div>
+            <nav>
+                <ul class="site-sections">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/ruby">Ruby</a></li>
+                    <li><a href="/lua">Lua</a></li>
+                    <li><a href="/scripts">All Scripts</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+                <ul class="breadcrumbs">
+                    <li><a href="/scripts">Scripts</a></li>
+                    <li><a href="/scripts/lua">Lua</a></li>
+                    <li><a href="/scripts/lua/bdsm">BDSM</a></li>
+                </ul>
+            </nav>
+            <h1>Basic Device Subscription Manager v0.1.0</h1>
+            <ul class="article-tags">
+                <li><a href="">Input</a></li>
+                <li><a href="">LÖVE</a></li>
+            </ul>
+        </header>
+        <main>
+            <section id="description">
+                <a href="#description"><h1>Description</h1></a>
+                <p>
+                    <!-- TODO: Add link to the Unity inputscheme video. -->
+                    Basic Device Subscription Manager, or BDSM, is an input library for the <a target="_blank" href="https://love2d.org/">LÖVE</a> framework. It's made to use similar concepts to that of <a target="_blank" href="">Unity's InputSystem</a>. Devices are managed separately to provide standardised input events and states. These events are handled by <span class="keyword">Input Schemes</span>, which are a combination of an in-game "context" (standard gameplay, vehicle driving, menu navigation, etc.) and a device-specific "input-scheme" (keyboard and mouse, gamepad, joystick, etc.).
+                </p>
+            </section>
+            <section id="script">
+                <a href="#script"><h1>The Script(s)</h1></a>
+                <section>
+                    <h3><a href="https://raw.githubusercontent.com/IMP1/gamedev-scripts/master/lua/input/bdsm.lua">Basic Device Subscription Manager</a></h3>
+                    <p>This is the core script, which the device managers subscribe to, and pass virtual events to, and where your state queries should be sent.</p>
+                </section>
+                <section>
+                    <h3><a href="https://raw.githubusercontent.com/IMP1/gamedev-scripts/master/lua/input/device_manager_keyboard.lua">Keyboard Device Manager</a></h3>
+                    <p>This is a rudmentary Device Manager for keyboards. It handles keypresses and releases. I'm also intending to give it an axis2D to represent the arrow keys (and WASD movement).</p>
+                </section>
+                <section>
+                    <h3><a href="https://raw.githubusercontent.com/IMP1/gamedev-scripts/master/lua/input/device_manager_mouse.lua">Mouse Device Manager</a></h3>
+                    <p>This is a rudmentary Device Manager for mouses. It handles keypresses and releases, as well as scrolling of the mouse wheel, and the movement of the mouse itself.</p>
+                </section>
+                <section>
+                    <h3><a href="https://raw.githubusercontent.com/IMP1/gamedev-scripts/master/lua/input/input_scheme_km_game.lua">Example Keyboard &amp; Mouse Input-Scheme: Gameplay</a></h3>
+                    <p>This is a very barebones example of an Input Scheme, which showcases switching between Input Schemes, and allows for moving, jumping and shooting.</p>
+                </section>
+                <section>
+                    <h3><a href="https://raw.githubusercontent.com/IMP1/gamedev-scripts/master/lua/input/input_scheme_km_menu.lua">Example Keyboard &amp; Mouse Input-Scheme: Menu Navigation</a></h3>
+                    <p>This is a very barebones example of an Input Scheme, which showcases switching between Input Schemes, and allows for navigation of a simple menu.</p>
+                </section>
+            </section>
+            <section id="terminology">
+                <a href="#terminology"><h1>Terminology</h1></a>
+                <dl>
+                    <dt><dfn>Device</dfn></dt>
+                    <dd>A physical means of obtaining user input. A mouse, a keyboard, a gamepad, etc.</dd>
+                    <dt><dfn>Key</dfn></dt>
+                    <dd>A property of an input device. The space bar is a key of the keyboard device, and the mouse wheel is a key of the mouse device, but the mouse's position is also a key of the mouse device. There are a few types of key types:
+                        <dl>
+                            <dt>button</dt>
+                            <dd>A traditional on/off switch, like a key on a keyboard, or a button on a mouse or gamepad</dd>
+                            <dt>axis1D</dt>
+                            <dd>A value that can altered in one of two directions, like a scroll wheel, or a single direction of a joystick</dd>
+                            <dt>axis2D</dt>
+                            <dd>A pair of values that can be altered in one of two directions in two different dimensions, like a gamepad's joystick, or the mouse's position</dd>
+                        </dl>
+                    </dd>
+                    <dt><dfn>Action</dfn></dt>
+                    <dd>A change of state of a key. There are currently three types of action:
+                        <dl>
+                            <dt>press</dt>
+                            <dd>The key has been pressed.</dd>
+                            <dt>release</dt>
+                            <dd>The key has been released.</dd>
+                            <dt>move</dt>
+                            <dd>At least one of the key's axis values has changed.</dd>
+                        </dl>
+                    </dd>
+                    <dt><dfn id="define-state">State</dfn></dt>
+                    <dd>An ongoing property of a device's key. Different key types have different properties:
+                        <dl>
+                            <dt>button</dt>
+                            <dd><code class="language-lua">state.is_pressed</code> returns a boolean corresponding with whether the key is currently pressed.</dd>
+                            <dt>axis1D</dt>
+                            <dd><code class="language-lua">state.x</code> returns the value along the axis.</dd>
+                            <dt>axis2D</dt>
+                            <dd><code class="language-lua">state.x</code> returns the value along the first dimension.</dd>
+                            <dd><code class="language-lua">state.y</code> returns the value along the second dimension.</dd>
+                        </dl>
+                    </dd>
+                    <dt><dfn>Device Manager (or Device Handler)</dfn></dt>
+                    <dd>
+                        <p>A translator from button presses to standardised virtual inputs, converting from different types of gamepads, for example. A Device Manager need to have the following properties:</p>
+                        <ul>
+                            <li><code class="language-lua">device_manager.get_state(key_id)</code> returns a table with state information about the given key.</li>
+                            <li><code class="language-lua">device_manager.get_info()</code> returns a table with information about the device.</li>
+                        </ul>
+                        <p>A device manager also needs to be initialised; it needs to register any devices it manages with the input library, and it needs to subscribe to events associated with any devices it manages.</p>
+                    </dd>
+                    <dt><dfn>Device Event</dfn></dt>
+                    <dd>A "physical" input from the player. A press of a button on a gamepad.</dd>
+                    <dt><dfn>Virtual Event</dfn></dt>
+                    <dd>A standardised event format, in terms of keys and referencing devices, that can be passed to schemes to be translated into game events. For example, pressing space would be a device event and a virtual event, but could, in certain contexts and schems, translate to a 'jump' game event.</dd>
+                    <dt><dfn>Context</dfn></dt>
+                    <dd>An environment in which virtual events translate to context might translate a mouse click into shooting, but the 'menu' context would instead translate it into selection of a menu item. Contexts are not used by this library, and are instead replaced with input schemes. They are useful to think about, however, when creating input schemes, and this section is included for people wanting to know how contexts would be implemented with this library.</dd>
+                    <dt><dfn>Input Scheme</dfn></dt>
+                    <dd>A collection of mappings from virtual events to game events. Schemes represent contexts but also different device combinations. You may have, for example, an input scheme for the player using the keyboard and mouse for when they are navigating the menu, and have another input scheme for when the same player is playing the game. You could also have input schemes for these contexts for a player using a gamepad. Schemes need to have the following properties:
+                        <ul>
+                            <li><code class="language-lua">uses_device(device_id)</code> returns a boolean corresponding to whether this input scheme uses the specified device.</li>
+                            <li><code class="language-lua">handle_event(event)</code></li>
+                        </ul>
+                    </dd>
+                </dl>
+            </section>
+            <section id="usage">
+                <a href="#usage"><h1>Usage</h1></a>
+                <p>There are a few components that come together to work as a functional input framework. The core BDSM library, Device Managers for each type of physical device, and Input Schemes for handling virtual events.</p>
+                <p>I've provided Device Managers for keyboards and mouses (see <a href="#script">above</a>), and intend to work on some for gamepads and touch screens.</p>
+                <section>
+                    <h2>Basic Device Subscription Manager</h2>
+                    <p>There are only two main interactions directly done with the BDSM library from not within any of the scripts provided on this page. The first is adding/removing input schemes, and the second is querying the state of input devices.</p>
+                    <p>To change which input schemes are active, you can call <code class="language-lua">input.add_input_scheme(input_scheme)</code> and <code class="language-lua">input.remove_input_scheme(input_scheme)</code>. At the moment, you need to manage yourself which are currently active, and handle any input schemes that are mutually exclusive. This is something I'd like to explore further down the line, however.</p>
+                    <p>To query the state of a device, for example to check for ongoing input, use <code class="language-lua">input.get_device_state(device_id, key)</code> which will return a state table, including the ID and name of the device, the ID, name and type of the key, and the state of the key. See <a href="#define-state">above</a> for the different states a key can have.</p>
+                    <br>
+                    <p>Other objects need to make calls to the library, however. Device managers need to get device IDs for any device they manage. This is done with <code class="language-lua">local device_id = input.register_device(device_manager_object)</code>. This associates the device manager with this device in the inner workings of the BDSM library.</p>
+                    <p>To subscribe a Device Manager to events, so that it can translate them into a standardised virtual event, they need to call <code class="language-lua">input.subscribe(event_name, func)</code>, which calls the given function with the relevant parameters when the event is fired. For more information on LÖVE events, see the <a target="_blank" href="https://love2d.org/wiki/love#Callbacks">LÖVE Wiki</a>.</p>
+                    <p>In order for a Device Manager to broadcast the standardised virtual events, it will need to call <code class="language-lua">input.handle_device_event(device, event, ...)</code>, where device is a table with the ID and name of the device, and event is a table with the ID, name and type of the relevant key, and the name of the action. Also passed are any extra parameters, which are usually numerical values associated with "move" actions. This event is then passed on to any Input Schemes that use the device.</p>
+                </section>
+                <section>
+                    <h2>Device Manager</h2>
+                    <p>A Device Manager handles any devices under its remit. For a keyboard Device Manager, this will generally just be on keyboard, but a gamepad device handler will potentially have multiple devices to manage.</p>
+                    <p>There are certain functions a Device Manager must respond to with sensible return values.</p>
+                    <p><code class="language-lua">device_manager.get_info()</code> must return a table with the number of devices being managed, a list of their IDs and a list of their names.</p>
+                    <p><code class="language-lua">device_manager.get_state(device_id, key)</code> must return a table with the name of the device, the name and type of the key, and the state of the key. This function is called by the BDSM library, and so shouldn't be used externally. Use <code class="language-lua">input.get_device_state(device_id, key)</code> instead.</p>
+                    <p>Device Managers must also call <code class="language-lua">input.handle_device_event(device_info, event_info, ...)</code> when it translates device events to virtual events.</p>
+                </section>
+                <section>
+                    <h2>Input Scheme</h2>
+                    <p>An Input Scheme is where your device inputs (via virtual events) finally connect to your game. You can consume them as you want: use callbacks, or messages, or hardcode in game-world responses to your Input Schemes.</p>
+                    <p>An Input Scheme will only be given events from devices that it uses. The BDSM library will call <code class="language-lua">input_scheme.uses_device(device_id)</code> to determine whether the Input Scheme does use the device. If it does then <code class="language-lua">input_scheme.handle_event(event)</code> will be called, with information about the event, including that about the device, the key, the action, and any extra parameters.</p>
+                    <p>Multiple input schemes can be active at any given time, and all handle any events fired from deviced they use.</p>
+                </section>
+            </section>
+            <section id="license">
+                <a href="#license"><h1>License</h1></a>
+                <p>MIT License</p>
+                <p>Copyright &copy; 2019 Huw Taylor</p>
+                <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:<p>
+                <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+                <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+            </section>
+            <section id="history">
+                <a href="#history"><h1>Version History</h1></a>
+                <p>Basic Device Subscription Manager uses <a target="_blank" href="https://semver.org/">Semantic Versioning</a>, and is not yet in version 1.0.0. This means it is susceptible to major, breaking, changes</p>
+                <dl>
+                    <dt><strong><a href="">v0.1.0</a></strong></dt>
+                    <dd>Released on 2019-06-03. The current version.</dd>
+                </dl>
+            </section>
+            <section id="roadmap">
+                <a href="#roadmap"><h1>Future Ideas</h1></a>
+                <ol>
+                    <li>Adding <span class="keyword">Contexts</span> which would represent some portion of gameplay with separate inputs. Input Schemes would be changed to be a combination of a Context, and a set of Devices. Then switching Input Schemes would be replaced with switching Contexts.</li>
+                </ol>
+            </section>
+        </main>
+        <footer>
+            <!-- TODO: Add links to github repo -->
+            <p>The source code for all the scripts, as well as this website, can be found on my <a href="https://github.com/IMP1/gamedev-scripts">Github</a>.</p>
+            <br>
+            <p class="bfj-logo">⌀</p>
+        </footer>
+    
+        <script src="prism.js"></script>
+
+    </body>
+</html>
+
+<!-- ∅ -->
