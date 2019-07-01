@@ -102,13 +102,15 @@ function sweet_nothings.localise(text, language)
     end
 end
 
-function sweet_nothings.deferredLocalise(text)
-    return function()
-        return sweet_nothings.localise(text)
+function sweet_nothings.defer_localise(text)
+    -- add localisation if missing here, so that translation files have all possible text, 
+    -- not just text that the player sees in one run.
+    if localisation_lookups[language] and not localisation_lookups[language][text] then
+        if sweet_nothings.settings.add_missing_localisation then
+            add_localisation(text)
+        end
     end
-end
-
-function sweet_nothings.localisedObject(text)
+    -- return an object with original text that is translated on any tostring() calls.
     local obj = {}
     obj.original = text
     setmetatable(obj, {__tostring=function() sweet_nothings.localise(text) end})
@@ -151,4 +153,4 @@ function sweet_nothings.get_language_directory(path)
     return language_directory
 end
 
-return tlo
+return sweet_nothings
