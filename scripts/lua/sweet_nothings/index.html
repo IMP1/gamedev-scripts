@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Sweet Nothings - Lua Scripts for LÖVE</title>
+        <link rel="stylesheet" type="text/css" href="/gamedev-scripts/lib/prism.css">
+        <link rel="stylesheet" type="text/css" href="/gamedev-scripts/style.css">
+    </head>
+
+    <body>
+        <header>
+            <div id="site-header">
+                <h1>IMP1's GameDev Scripts</h1>
+            </div>
+            <nav>
+                <ul class="site-sections">
+                    <li><a href="/gamedev-scripts/">Home</a></li>
+                    <li><a href="/gamedev-scripts/ruby">Ruby</a></li>
+                    <li><a href="/gamedev-scripts/lua">Lua</a></li>
+                    <li><a href="/gamedev-scripts/scripts">All Scripts</a></li>
+                    <li><a href="/gamedev-scripts/about">About</a></li>
+                </ul>
+                <ul class="breadcrumbs">
+                    <li><a href="/gamedev-scripts/scripts">Scripts</a></li>
+                    <li><a href="/gamedev-scripts/scripts/lua">Lua</a></li>
+                    <li><a href="/gamedev-scripts/scripts/lua/sweet_nothings">Sweet Nothings</a></li>
+                </ul>
+            </nav>
+            <h1>Sweet Nothings v1.0.0</h1>
+            <ul class="article-tags">
+                <li><a href="">Localisation</a></li>
+                <li><a href="">Translation</a></li>
+                <li><a href="">LÖVE</a></li>
+            </ul>
+        </header>
+        <main>
+            <section id="description">
+                <a href="#description"><h1>Description</h1></a>
+                <p class="disclaimer">
+                    This is not a translation library. This will not do translations for you.
+                </p>
+                <p>
+                    Instead, this library will hopefully enable you to add translations further down the line (when you're done making the game), without having to change your code at all, with as little impact on the way you develop your games as possible.
+                </p>
+            </section>
+            <section id="script">
+                <a href="#script"><h1>The Script(s)</h1></a>
+                <section>
+                    <h3><a href="https://github.com/IMP1/gamedev-scripts/blob/master/lua/localisation/sweet_nothings.lua">Sweet Nothings</a></h3>
+                    <p>This is the core script.</p>
+                </section>
+            </section>
+            <section id="usage">
+                <a href="#usage"><h1>Usage</h1></a>
+                <p>
+                    Sweet nothings is designed to have minimal impact on your coding.
+                </p>
+                <section>
+                    <h2>Setup</h2>
+                    <p>No setup is required, but to use Sweet Nothings, a target language must be selected. I recommend, until later in the development, having the target language be whatever your native language is. You can also load translation files up front if you want.</p>
+                    <p>To set the language, use <code class="language-lua">sweet_nothing.set_lanauge("en-GB")</code> and to load a lanauge's translations into memory, but not set it, use <code class="language-lua">sweet_nothing.load_lanauge("en-GB")</code>
+                    </p>
+                    <p>I use language codes ("en-GB", "fr", etc.) throughout this documention, but they're not necessary. You can use whatever your want, so long as they're unique strings for each lanauge, and you know which string matches which language.</p>
+                </section>
+                <section>
+                    <h2>Internationalisation</h2>
+                    <p>There are two ways to use Sweet Nothing's internationalisation. The simplest is to translate the literal string into whichever language is set when the code is run. If you are using a GUI library, however, or something that keeps some state and holds the text in, then you might want this text to change if the language changes. In which case, you can either use the first solution and translate it when it is shown to the user, or you can use Deferred Localisation, which will return a lua table/object which will be translated when tostring is called on it.</p>
+                    <pre>
+<code class="language-lua">local T = sweet_nothings.localise
+function love.draw()
+    love.graphics.print(T"hello world", 0, 0)
+end
+</code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Localisation</h2>
+                    <p>You can set Sweet Nothings to add any missing localisations, and/or create missing language files. These language files are simply key/value pairs of the original language strings to target language strings.</p>
+                </section>
+            </section>
+            <section id="license">
+                <a href="#license"><h1>License</h1></a>
+                <p>MIT License</p>
+                <p>Copyright &copy; 2019 Huw Taylor</p>
+                <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:<p>
+                <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+                <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+            </section>
+            <section id="history">
+                <a href="#history"><h1>Version History</h1></a>
+                <p>Basic Device Subscription Manager uses <a target="_blank" href="https://semver.org/">Semantic Versioning</a>, and is released as version 1.not yet in version 1.0.0. This means it is susceptible to major, breaking, changes</p>
+                <dl>
+                    <dt><strong><a href="">v1.0.0</a></strong></dt>
+                    <dd>Released on 2019-07-01. The current version.</dd>
+                </dl>
+            </section>
+            <section id="roadmap">
+                <a href="#roadmap"><h1>Future Ideas</h1></a>
+                <p>Have any ideas for this library? Let me know, by <a href="https://github.com/IMP1/gamedev-scripts/issues/new?labels=enhancement,lua&title=[Sweet%20Nothings]">creating an issue</a>!</p>
+            </section>
+        </main>
+        <footer>
+            <p>The source code for all the scripts, as well as this website, can be found on my <a href="https://github.com/IMP1/gamedev-scripts">Github</a>.</p>
+            <br>
+            <p class="bfj-logo">⌀</p>
+        </footer>
+    
+        <script src="/gamedev-scripts/lib/prism.js"></script>
+
+    </body>
+</html>
+
+<!-- ∅ -->
