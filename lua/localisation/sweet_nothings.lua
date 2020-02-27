@@ -1,5 +1,5 @@
 local sweet_nothings = {
-    _VERSION      = 'v1.0.0',
+    _VERSION      = '1.0.0',
     _DESCRIPTION  = 'A Lua internationalisation library for LÖVE games',
     _AUTHOR       = "Huw 'IMP1' Taylor",
     _URL          = 'https://imp1.github.io/gamedev-scripts/scripts/lua/sweet_nothings/',
@@ -113,7 +113,7 @@ function sweet_nothings.defer_localise(text)
     -- return an object with original text that is translated on any tostring() calls.
     local obj = {}
     obj.original = text
-    setmetatable(obj, {__tostring=function() sweet_nothings.localise(text) end})
+    setmetatable(obj, {__tostring=function() return sweet_nothings.localise(text) end})
     return obj
 end
 
