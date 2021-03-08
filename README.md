@@ -6,6 +6,17 @@ More information can be found on [the website](https://IMP1.github.io/gamedev-sc
 
 ## RPG Maker Scripts
 
+### Storage Boxes
+
+This allows for containers to exist which can hold items. You can deposit item into, and withdraw 
+items from, these containers, and a window for transfering items is also included. With some of the 
+add-ons, you can also give these containers limits, and item-type filters, and allow for items to be
+randomly stolen from them.
+
+[Script](https://gist.githubusercontent.com/IMP1/e34da652dad98b9fe8151bcc042bb7a8/raw/9dcc5299d137e85f3e5970fe92e48ba23c7d7e94/Storage%2520Boxes.rb) | 
+[Usage & Help](https://forums.rpgmakerweb.com/index.php?threads/storage-boxes.27727/) |
+[License](https://github.com/IMP1/gamedev-scripts/tree/master/ruby/storage-boxes#License)
+
 ## LÖVE Scripts
 
 ### Basic Device Subscription Manager (BDSM) [v0.1.0]
@@ -13,6 +24,7 @@ More information can be found on [the website](https://IMP1.github.io/gamedev-sc
 An Input Management library, made to work vaguely similarly to Unity's InputSystem.
 Devices are managed separately which provides standardised input events and states.
 
+[Script](https://raw.githubusercontent.com/IMP1/gamedev-scripts/master/lua/bdsm/bdsm.lua) | 
 [Usage & Help](https://github.com/IMP1/gamedev-scripts/tree/master/lua/bdsm#Usage) | 
 [License](https://github.com/IMP1/gamedev-scripts/tree/master/lua/bdsm#License)
 
