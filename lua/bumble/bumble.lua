@@ -13,7 +13,7 @@ going up and down, respectively.
 A polygon's list of points must go clockwise? or anti-clockwise? Not sure. Fuck.
 --]]
 
-require 'lib.astar'
+local astar = require 'lib.astar'
 
 local bumble = {
     _VERSION     = 'v0.1.0',

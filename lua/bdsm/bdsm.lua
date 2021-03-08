@@ -7,7 +7,7 @@ An input library for LÖVE, made to work similarly to Unity's InputSystem.
 Devices are managed separately to provide standardised input events and states.
 
     ]],
-    _URL         = 'https://github.com/IMP1/gamedev-scripts/blob/master/lua/input/bdsm.lua',
+    _URL         = 'https://github.com/IMP1/gamedev-scripts/tree/master/lua/bdsm',
     _LICENSE     = [[
         MIT License
 

@@ -6,10 +6,12 @@ local save_data = {}
 local used_keys = {}
 
 local function decompress(file_text)
+    -- TODO: Add compression/decompression
     return file_text
 end
 
 local function compress(text_data)
+    -- TODO: Add compression/decompression
     return text_data
 end
 
@@ -37,7 +39,6 @@ function safeword.load()
     if info then
         local saved_data = decompress(love.filesystem.read(SAVEDATA_FILENAME))
         local all_data = loadstring(saved_data)()
-        -- local all_data = love.filesystem.load(SAVEDATA_FILENAME)()
         save_data = all_data.save_data
         used_keys = all_data.used_keys
     else
